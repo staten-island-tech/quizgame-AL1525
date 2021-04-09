@@ -1,217 +1,102 @@
 console.log("connected");
 
-const question = [
-  {
-    questionContent: "What's your question 1?",
-    choices: [
-      {
-        choiceContent: "Answer 1",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 2",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 3",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 4",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 2?",
-    choices: [
-      {
-        choiceContent: "Answer 5",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 6",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 7",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 8",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 3?",
-    choices: [
-      {
-        choiceContent: "Answer 9",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 10",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 11",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 12",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 4?",
-    choices: [
-      {
-        choiceContent: "Answer 13",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 14",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 15",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 16",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 5?",
-    choices: [
-      {
-        choiceContent: "Answer 17",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 18",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 19",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 20",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 6?",
-    choices: [
-      {
-        choiceContent: "Answer 21",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 22",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 23",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 24",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 7?",
-    choices: [
-      {
-        choiceContent: "Answer 25",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 26",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 27",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 28",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 8?",
-    choices: [
-      {
-        choiceContent: "Answer 29",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 30",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 31",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 32",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 9?",
-    choices: [
-      {
-        choiceContent: "Answer 33",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 34",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 35",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 36",
-        correct: false,
-      },
-    ],
-  },
-  {
-    questionContent: "What's your question 10?",
-    choices: [
-      {
-        choiceContent: "Answer 37",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 38",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 39",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 40",
-        correct: false,
-      },
-    ],
-  },
-];
+(function(){
+  function buildQuiz(){
+    const output = [];
+    myQuestions.forEach(
+      (currentQuestion, questionNumber) => {
+        const answers = [];
+        for(letter in currentQuestion.answers){
+          answers.push(
+            `<label>
+              <input type="radio" name="question${questionNumber}" value="${letter}">
+              ${letter} :
+              ${currentQuestion.answers[letter]}
+            </label>`
+          );
+        }
+
+        output.push(
+          `<div class="slide">
+            <div class="questions"> ${currentQuestion.question} </div>
+            <div class="answers"> ${answers.join("")} </div>
+          </div>`
+        );
+      }
+    );
+
+    quizContainer.innerHTML = output.join('');
+  }
+
+  function showResults(){
+    const answerContainers = quizContainer.querySelectorAll('.answers');
+
+    let numCorrect = 0;
+
+    myQuestions.forEach( (currentQuestion, questionNumber) => {
+      const answerContainer = answerContainers[questionNumber];
+      const selector = `input[name=question${questionNumber}]:checked`;
+      const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+      if(userAnswer === currentQuestion.correctAnswer){
+        numCorrect++;
+        answerContainers[questionNumber].style.color = 'green';
+      } else{
+        answerContainers[questionNumber].style.color = 'red';
+      }
+    });
+
+    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+  }
+
+  function showSlide(n) {
+    slides[currentSlide].classList.remove('active-slide');
+    slides[n].classList.add('active-slide');
+    currentSlide = n;
+    if(currentSlide === 0){
+      previousButton.style.display = 'none';
+    } else{
+      previousButton.style.display = 'inline-block';
+    }
+    if(currentSlide === slides.length-1){
+      nextButton.style.display = 'none';
+      submitButton.style.display = 'inline-block';
+    } else{
+      nextButton.style.display = 'inline-block';
+      submitButton.style.display = 'none';
+    }
+  }
+
+  function showNextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  function showPreviousSlide() {
+    showSlide(currentSlide - 1);
+  }
+
+  const quizContainer = document.getElementById('quiz');
+  const resultsContainer = document.getElementById('results');
+  const submitButton = document.getElementById('submit');
+  const myQuestions = {
+    import {question} from './question.js';  //?
+  };
+
+  buildQuiz();
+
+  const previousButton = document.getElementById("previous");
+  const nextButton = document.getElementById("next");
+  const slides = document.querySelectorAll(".slides");
+  let currentSlide = 0;
+
+  showSlide(currentSlide);
+
+  submitButton.addEventListener('click', showResults);
+  previousButton.addEventListener('click', showPreviousSlide);
+  nextButton.addEventListener('click', showNextSlide);
+})();
+
+/*import { question } from "./question.js";
 
 function buildQuiz() {
   const output = [];
@@ -284,4 +169,4 @@ function showResults() {
   });
 }
 
-submitButton.addEventListener("click", showResults);
+submitButton.addEventListener("click", showResults);*/
