@@ -11,7 +11,7 @@ console.log("connected");
       // variable to store the list of possible answers
       const answers = [];
 
-      // and for each available answer...
+      // and for each available answer (letters from the answer choices)
       for (letter in currentQuestion.answers) {
         // ...add an HTML radio button
         answers.push(
@@ -98,7 +98,7 @@ console.log("connected");
     showSlide(currentSlide - 1);
   }
 
-  // Variables
+  // Variables (HTML elements)
   const quizContainer = document.getElementById("quiz");
   const resultsContainer = document.getElementById("results");
   const submitButton = document.getElementById("submit");
