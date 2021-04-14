@@ -32,7 +32,7 @@ console.log("connected");
       );
     });
 
-    // finally combine our output list into one string of HTML and put it on the page
+    // finally combine/JOIN our output list into one string of HTML and put it on the page
     quizContainer.innerHTML = output.join("");
   }
 
@@ -48,6 +48,7 @@ console.log("connected");
       // find selected answer
       const answerContainer = answerContainers[questionNumber];
       const selector = `input[name=question${questionNumber}]:checked`;
+      //either/or conditon = true
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
       // if answer is correct
@@ -55,7 +56,7 @@ console.log("connected");
         // add to the number of correct answers
         numCorrect++;
 
-        // color the answers green
+        // and color the answers green
         answerContainers[questionNumber].style.color = "lightgreen";
       }
       // if answer is wrong or blank
@@ -73,11 +74,13 @@ console.log("connected");
     slides[currentSlide].classList.remove("active-slide");
     slides[n].classList.add("active-slide");
     currentSlide = n;
+    // if current slide is first slide, hide previous button
     if (currentSlide === 0) {
       previousButton.style.display = "none";
     } else {
       previousButton.style.display = "inline-block";
     }
+    //if on last slide, hide next button and show submit button
     if (currentSlide === slides.length - 1) {
       nextButton.style.display = "none";
       submitButton.style.display = "inline-block";
