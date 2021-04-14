@@ -1,48 +1,47 @@
 console.log("connected");
+import { questions } from "./question.js";
 
-(function(){
-  function buildQuiz(){
+(function () {
+  function buildQuiz() {
     const output = [];
-    myQuestions.forEach(
-      (currentQuestion, questionNumber) => {
-        const answers = [];
-        for(letter in currentQuestion.answers){
-          answers.push(
-            `<label>
+    myQuestions.forEach((currentQuestion, questionNumber) => {
+      const answers = [];
+      for (letter in currentQuestion.answers) {
+        answers.push(
+          `<label>
               <input type="radio" name="question${questionNumber}" value="${letter}">
               ${letter} :
               ${currentQuestion.answers[letter]}
             </label>`
-          );
-        }
+        );
+      }
 
-        output.push(
-          `<div class="slide">
+      output.push(
+        `<div class="slide">
             <div class="questions"> ${currentQuestion.question} </div>
             <div class="answers"> ${answers.join("")} </div>
           </div>`
-        );
-      }
-    );
+      );
+    });
 
-    quizContainer.innerHTML = output.join('');
+    quizContainer.innerHTML = output.join("");
   }
 
-  function showResults(){
-    const answerContainers = quizContainer.querySelectorAll('.answers');
+  function showResults() {
+    const answerContainers = quizContainer.querySelectorAll(".answers");
 
     let numCorrect = 0;
 
-    myQuestions.forEach( (currentQuestion, questionNumber) => {
+    myQuestions.forEach((currentQuestion, questionNumber) => {
       const answerContainer = answerContainers[questionNumber];
       const selector = `input[name=question${questionNumber}]:checked`;
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
-      if(userAnswer === currentQuestion.correctAnswer){
+      if (userAnswer === currentQuestion.correctAnswer) {
         numCorrect++;
-        answerContainers[questionNumber].style.color = 'green';
-      } else{
-        answerContainers[questionNumber].style.color = 'red';
+        answerContainers[questionNumber].style.color = "green";
+      } else {
+        answerContainers[questionNumber].style.color = "red";
       }
     });
 
@@ -50,20 +49,20 @@ console.log("connected");
   }
 
   function showSlide(n) {
-    slides[currentSlide].classList.remove('active-slide');
-    slides[n].classList.add('active-slide');
+    slides[currentSlide].classList.remove("active-slide");
+    slides[n].classList.add("active-slide");
     currentSlide = n;
-    if(currentSlide === 0){
-      previousButton.style.display = 'none';
-    } else{
-      previousButton.style.display = 'inline-block';
+    if (currentSlide === 0) {
+      previousButton.style.display = "none";
+    } else {
+      previousButton.style.display = "inline-block";
     }
-    if(currentSlide === slides.length-1){
-      nextButton.style.display = 'none';
-      submitButton.style.display = 'inline-block';
-    } else{
-      nextButton.style.display = 'inline-block';
-      submitButton.style.display = 'none';
+    if (currentSlide === slides.length - 1) {
+      nextButton.style.display = "none";
+      submitButton.style.display = "inline-block";
+    } else {
+      nextButton.style.display = "inline-block";
+      submitButton.style.display = "none";
     }
   }
 
@@ -75,11 +74,11 @@ console.log("connected");
     showSlide(currentSlide - 1);
   }
 
-  const quizContainer = document.getElementById('quiz');
-  const resultsContainer = document.getElementById('results');
-  const submitButton = document.getElementById('submit');
+  const quizContainer = document.getElementById("quiz");
+  const resultsContainer = document.getElementById("results");
+  const submitButton = document.getElementById("submit");
   const myQuestions = {
-    import {question} from './question.js';  //?
+    questions,
   };
 
   buildQuiz();
@@ -91,9 +90,9 @@ console.log("connected");
 
   showSlide(currentSlide);
 
-  submitButton.addEventListener('click', showResults);
-  previousButton.addEventListener('click', showPreviousSlide);
-  nextButton.addEventListener('click', showNextSlide);
+  submitButton.addEventListener("click", showResults);
+  previousButton.addEventListener("click", showPreviousSlide);
+  nextButton.addEventListener("click", showNextSlide);
 })();
 
 /*import { question } from "./question.js";

@@ -1,214 +1,104 @@
-const question = [
+const questions = [
   {
-    questionContent: "What's your question 1?",
-    choices: [
-      {
-        choiceContent: "Answer 1",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 2",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 3",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 4",
-        correct: false,
-      },
-    ],
+    question: "Question 1",
+    answers: {
+      a: "Choice 1",
+      b: "Choice 2",
+      c: "Choice 3",
+      d: "Choice 4",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 2?",
-    choices: [
-      {
-        choiceContent: "Answer 5",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 6",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 7",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 8",
-        correct: false,
-      },
-    ],
+    question: "Question 2",
+    answers: {
+      a: "Choice 5",
+      b: "Choice 6",
+      c: "Choice 7",
+      d: "Choice 8",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 3?",
-    choices: [
-      {
-        choiceContent: "Answer 9",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 10",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 11",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 12",
-        correct: false,
-      },
-    ],
+    question: "Question 3",
+    answers: {
+      a: "Choice 9",
+      b: "Choice 10",
+      c: "Choice 11",
+      d: "Choice 12",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 4?",
-    choices: [
-      {
-        choiceContent: "Answer 13",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 14",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 15",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 16",
-        correct: false,
-      },
-    ],
+    question: "Question 4",
+    answers: {
+      a: "Choice 13",
+      b: "Choice 14",
+      c: "Choice 15",
+      d: "Choice 16",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 5?",
-    choices: [
-      {
-        choiceContent: "Answer 17",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 18",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 19",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 20",
-        correct: false,
-      },
-    ],
+    question: "Question 5",
+    answers: {
+      a: "Choice 17",
+      b: "Choice 18",
+      c: "Choice 19",
+      d: "Choice 20",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 6?",
-    choices: [
-      {
-        choiceContent: "Answer 21",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 22",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 23",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 24",
-        correct: false,
-      },
-    ],
+    question: "Question 6",
+    answers: {
+      a: "Choice 21",
+      b: "Choice 22",
+      c: "Choice 23",
+      d: "Choice 24",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 7?",
-    choices: [
-      {
-        choiceContent: "Answer 25",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 26",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 27",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 28",
-        correct: false,
-      },
-    ],
+    question: "Question 7",
+    answers: {
+      a: "Choice 25",
+      b: "Choice 26",
+      c: "Choice 27",
+      d: "Choice 28",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 8?",
-    choices: [
-      {
-        choiceContent: "Answer 29",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 30",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 31",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 32",
-        correct: false,
-      },
-    ],
+    question: "Question 8",
+    answers: {
+      a: "Choice 29",
+      b: "Choice 30",
+      c: "Choice 31",
+      d: "Choice 32",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 9?",
-    choices: [
-      {
-        choiceContent: "Answer 33",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 34",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 35",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 36",
-        correct: false,
-      },
-    ],
+    question: "Question 9",
+    answers: {
+      a: "Choice 33",
+      b: "Choice 34",
+      c: "Choice 35",
+      d: "Choice 36",
+    },
+    correctAnswer: "c",
   },
   {
-    questionContent: "What's your question 10?",
-    choices: [
-      {
-        choiceContent: "Answer 37",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 38",
-        correct: false,
-      },
-      {
-        choiceContent: "Answer 39",
-        correct: true,
-      },
-      {
-        choiceContent: "Answer 40",
-        correct: false,
-      },
-    ],
+    question: "Question 10",
+    answers: {
+      a: "Choice 37",
+      b: "Choice 38",
+      c: "Choice 39",
+      d: "Choice 40",
+    },
+    correctAnswer: "c",
   },
 ];
 
-export { question };
+export { questions };
