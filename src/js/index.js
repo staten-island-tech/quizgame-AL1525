@@ -2,11 +2,19 @@ console.log("connected");
 import { questions } from "./question.js";
 
 (function () {
+  // Functions
   function buildQuiz() {
+    // variable to store the HTML output
     const output = [];
+
+    // for each question...
     myQuestions.forEach((currentQuestion, questionNumber) => {
+      // variable to store the list of possible answers
       const answers = [];
+
+      // and for each available answer...
       for (letter in currentQuestion.answers) {
+        // ...add an HTML radio button
         answers.push(
           `<label>
               <input type="radio" name="question${questionNumber}" value="${letter}">
@@ -16,35 +24,49 @@ import { questions } from "./question.js";
         );
       }
 
+      // add this question and its answers to the output
       output.push(
         `<div class="slide">
-            <div class="questions"> ${currentQuestion.question} </div>
+            <div class="question"> ${currentQuestion.question} </div>
             <div class="answers"> ${answers.join("")} </div>
           </div>`
       );
     });
 
+    // finally combine our output list into one string of HTML and put it on the page
     quizContainer.innerHTML = output.join("");
   }
 
   function showResults() {
+    // gather answer containers from our quiz
     const answerContainers = quizContainer.querySelectorAll(".answers");
 
+    // keep track of user's answers
     let numCorrect = 0;
 
+    // for each question...
     myQuestions.forEach((currentQuestion, questionNumber) => {
+      // find selected answer
       const answerContainer = answerContainers[questionNumber];
       const selector = `input[name=question${questionNumber}]:checked`;
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
+      // if answer is correct
       if (userAnswer === currentQuestion.correctAnswer) {
+        // add to the number of correct answers
         numCorrect++;
-        answerContainers[questionNumber].style.color = "green";
-      } else {
+
+        // color the answers green
+        answerContainers[questionNumber].style.color = "lightgreen";
+      }
+      // if answer is wrong or blank
+      else {
+        // color the answers red
         answerContainers[questionNumber].style.color = "red";
       }
     });
 
+    // show number of correct answers out of total
     resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
   }
 
@@ -74,98 +96,26 @@ import { questions } from "./question.js";
     showSlide(currentSlide - 1);
   }
 
+  // Variables
   const quizContainer = document.getElementById("quiz");
   const resultsContainer = document.getElementById("results");
   const submitButton = document.getElementById("submit");
-  const myQuestions = {
-    questions,
-  };
+  const myQuestions = [questions];
 
+  // Kick things off
   buildQuiz();
 
+  // Pagination
   const previousButton = document.getElementById("previous");
   const nextButton = document.getElementById("next");
-  const slides = document.querySelectorAll(".slides");
+  const slides = document.querySelectorAll(".slide");
   let currentSlide = 0;
 
+  // Show the first slide
   showSlide(currentSlide);
 
+  // Event listeners
   submitButton.addEventListener("click", showResults);
   previousButton.addEventListener("click", showPreviousSlide);
   nextButton.addEventListener("click", showNextSlide);
 })();
-
-/*import { question } from "./question.js";
-
-function buildQuiz() {
-  const output = [];
-
-  question.forEach((currentQuestion, questionNumber) => {
-    const answers = [
-      "Answer 1",
-      "Answer 2",
-      "Answer 3",
-      "Answer 4",
-      "Answer 5",
-      "Answer 6",
-      "Answer 7",
-      "Answer 8",
-      "Answer 9",
-      "Answer 10",
-      "Answer 11",
-      "Answer 12",
-      "Answer 13",
-      "Answer 14",
-      "Answer 15",
-      "Answer 16",
-      "Answer 17",
-      "Answer 18",
-      "Answer 19",
-      "Answer 20",
-      "Answer 21",
-      "Answer 22",
-      "Answer 23",
-      "Answer 24",
-      "Answer 25",
-      "Answer 26",
-      "Answer 27",
-      "Answer 28",
-      "Answer 29",
-      "Answer 30",
-      "Answer 31",
-      "Answer 32",
-      "Answer 33",
-      "Answer 34",
-      "Answer 35",
-      "Answer 36",
-      "Answer 37",
-      "Answer 38",
-      "Answer 39",
-      "Answer 40",
-    ];
-  });
-}
-
-const quizContainer = document.getElementById("quiz");
-
-function showResults() {
-  const answers = quizContainer.querySelectorAll(".answers");
-
-  let numCorrect = 0;
-
-  questions.forEach((currentQuestion, questionNumber) => {
-    const answers = answers[questionNumber];
-    const selector = `input[name=question${questionNumber}]:checked`;
-    const userAnswer = (answers.querySelector(selector) || {}).value;
-
-    if (userAnswer === currentQuestion.correctAnswer) {
-      numCorrect++;
-      //increase score
-      answerContainers[questionNumber].style.color = "green";
-    } else {
-      answerContainers[questionNumber].style.color = "red";
-    }
-  });
-}
-
-submitButton.addEventListener("click", showResults);*/

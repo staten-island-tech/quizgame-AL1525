@@ -1,53 +1,47 @@
 $fontClassy: ("Cormorant Unicase", serif);
 
 body {
-  font-size: 62.5%;
+  font-size: 20px;
   font-family: $fontClassy;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  background-color: rgb(219, 219, 219);
+  color: #333;
+  font-weight: 300;
   text-align: center;
+  background-color: #f8f6f0;
 }
-
-.heading {
-  margin: 0;
+h1 {
+  font-weight: 300;
+  margin: 0px;
   padding: 10px;
   font-size: 20px;
-  background-color: blue;
-  color: white;
+  background-color: #444;
+  color: #fff;
 }
-
 .question {
   font-size: 30px;
   margin-bottom: 10px;
 }
-
 .answers {
   margin-bottom: 20px;
   text-align: left;
   display: inline-block;
 }
-
 .answers label {
   display: block;
   margin-bottom: 10px;
 }
-
 button {
   font-family: $fontClassy;
   font-size: 22px;
-  background-color: grey;
-  color: purple;
+  background-color: #279;
+  color: #fff;
   border: 0px;
   border-radius: 3px;
   padding: 20px;
   cursor: pointer;
   margin-bottom: 20px;
 }
-
 button:hover {
-  background-color: red;
+  background-color: #38a;
 }
 
 .slide {
@@ -59,12 +53,10 @@ button:hover {
   opacity: 0;
   transition: opacity 0.5s;
 }
-
 .active-slide {
   opacity: 1;
   z-index: 2;
 }
-
 .quiz-container {
   position: relative;
   height: 200px;
